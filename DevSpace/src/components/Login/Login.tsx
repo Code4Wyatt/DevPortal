@@ -40,11 +40,6 @@ const Login = () => {
     }
   });
 
-  const useFetchUserDetails = async () => {
-    let email = localStorage.getItem('email');
-    useGetDeveloperDetailsQuery(email);
-  }
-
   const navigate = useNavigate();
 
   useEffect(() => {
