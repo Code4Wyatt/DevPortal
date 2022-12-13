@@ -1,0 +1,46 @@
+.animate {
+    text-transform: uppercase;
+    background-image: linear-gradient(-225deg,
+            #702472 0%,
+            #f5f5f5 29%,
+            #a6acd0 67%,
+            #b1b1b1 100%);
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    color: #fff;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 20s linear infinite;
+    display: inline-block;
+    position: relative;
+    top: 50px;
+    left: 11%;
+}
+
+.animate2 {
+    text-transform: uppercase;
+    background-image: linear-gradient(-225deg,
+            #702472 0%,
+            #f5f5f5 29%,
+            #a6acd0 67%,
+            #9dedf8 100%);
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    color: #fff;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 11s linear infinite;
+    display: inline-block;
+    position: relative;
+    top: 50px;
+    left: 11%;
+}
+
+@keyframes textclip {
+    to {
+        background-position: 200% center;
+    }
+}
