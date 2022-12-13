@@ -32,6 +32,7 @@ interface IData {
 }
 
 function Dashboard() {
+  const [developer, setDeveloper] = useState<ICurrentUser>();
   let email = localStorage.getItem("email");
   useGetDeveloperDetailsQuery(email);
 
@@ -42,7 +43,9 @@ function Dashboard() {
   );
 
   let currentUserDetails = currentUser?.currentUser as ICurrentUser;
-
+  if (currentUserDetails !== developer) {
+    setDeveloper(currentUserDetails)
+  }
   console.log(currentUserDetails);
 
   return (
