@@ -1,4 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+* {
+  font-family: 'Source Code Pro';
+}
+
 body {
+  font-family: 'Source Code Pro';
   background-color: #081229;
   color: white;
 }

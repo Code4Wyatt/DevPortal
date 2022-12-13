@@ -15,8 +15,8 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = ["Developers", "Roles", "Blog"];
+const settings = ["Go To Dashboard", "My Profile", "Settings", "Logout"];
 
 interface ICurrentUser {
   currentUser: Object;
@@ -78,7 +78,7 @@ function ResponsiveAppBar() {
   console.log(currentUserDetails?.profileImage);
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ background: '#2E3B55' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -97,7 +97,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            DevPortal
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
