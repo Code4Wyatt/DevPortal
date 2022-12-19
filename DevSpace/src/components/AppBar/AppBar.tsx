@@ -14,9 +14,12 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
+import { useNavigate } from "react-router";
+import { Link } from 'react-router-dom';
+import './style.scss';
 
 const pages = ["Developers", "Roles", "Blog"];
-const settings = ["Go To Dashboard", "My Profile", "Settings", "Logout"];
+const settings = ["Dashboard", "Settings", "Logout"];
 
 interface ICurrentUser {
   currentUser: Object;
@@ -44,6 +47,7 @@ interface IData {
 }
 
 function ResponsiveAppBar() {
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -131,6 +135,7 @@ function ResponsiveAppBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -153,7 +158,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            DevPortal
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -162,7 +167,7 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                <Link to={`/${page}`} className='app__bar-link'>{page}</Link>
               </Button>
             ))}
           </Box>
@@ -189,9 +194,13 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+              <MenuItem key={'profile'} onClick={handleCloseUserMenu}>
+                    <Link to={`/developer/${currentUserDetails?._id}`}>My Profile</Link>
+              </MenuItem>
+          
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Link to={`/${setting}`}>{setting}</Link>
                 </MenuItem>
               ))}
             </Menu>

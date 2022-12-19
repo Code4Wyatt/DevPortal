@@ -1,5 +1,5 @@
 import { useGetDeveloperDetailsQuery } from "../../features/currentUser/userAPI";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from "../../app/store";
 import ResponsiveAppBar from "../../components/AppBar/AppBar";
 import { Grid, Typography } from "@mui/material";
@@ -9,6 +9,8 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import "./style.scss";
+import RepoList from '../../components/RepoList/RepoList';
+
 
 interface ICurrentUser {
   currentUser: Object;
@@ -29,6 +31,7 @@ interface ICurrentUser {
   statement: string;
   updatedAt: string;
   _id: string;
+  length: number;
 }
 
 interface IData {
@@ -36,13 +39,17 @@ interface IData {
 }
 
 function Dashboard() {
-  const [developer, setDeveloper] = useState<ICurrentUser>();
+  let [developer, setDeveloper] = useState<ICurrentUser>();
   let email = localStorage.getItem("email");
   useGetDeveloperDetailsQuery(email);
 
+const reload = () => {
+    window.location.reload();
+  };
+
   const currentUser: any = useSelector(
     (state: RootState) =>
-      state.fetchUserDetails.queries[`getDeveloperDetails(\"${email}\")`]
+      state.fetchUserDetails.queries[`getDeveloperDetails("${email}")`]
         ?.data as IData["currentUser"]
   );
 
@@ -50,13 +57,19 @@ function Dashboard() {
   if (currentUserDetails !== developer) {
     setDeveloper(currentUserDetails);
   }
+
+  if (developer?.length == 0) {
+    reload();
+  }
+
   console.log(currentUserDetails);
+
 
   return (
     <>
       <ResponsiveAppBar />
 
-      <Grid container spacing={1} marginLeft={25} marginRight={25} width="85%">
+      <Grid container spacing={1} marginLeft={31} marginRight={25} width="80%">
         <Grid
           item
           xs={3}
@@ -138,12 +151,12 @@ function Dashboard() {
                   <CardMedia
                     component="img"
                     height="140"
-                    image="https://lh3.googleusercontent.com/p/AF1QipOH90tOJ3ZDoBbxuEzBS7KmSUhCuoj_Jymauq6D=s1360-w1360-h1020"
+                    image="https://pbs.twimg.com/media/EyjQfGYU8AEs0xE?format=jpg&name=large"
                     alt="company logo"
                   />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      xDesign
+                    <Typography gutterBottom variant="h6" component="div">
+                      Microsoft
                     </Typography>
                   </CardContent>
                 </CardActionArea>
@@ -164,7 +177,7 @@ function Dashboard() {
                     alt="company logo"
                   />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h6" component="div">
                       Capgemini
                     </Typography>
                   </CardContent>
@@ -187,7 +200,7 @@ function Dashboard() {
                     style={{ objectFit: 'cover'}}
                   />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h6" component="div">
                       3 Sided Cube
                     </Typography>
                   </CardContent>
@@ -210,7 +223,7 @@ function Dashboard() {
                     style={{ objectFit: 'cover'}}
                   />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h6" component="div">
                       Areti
                     </Typography>
                   </CardContent>
@@ -232,7 +245,7 @@ function Dashboard() {
                     alt="company logo"
                   />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h6" component="div">
                       initi8
                     </Typography>
                   </CardContent>
@@ -247,8 +260,11 @@ function Dashboard() {
             
           </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <h1>DevSpace</h1>
+        <Grid item xs={6}>
+          <h3></h3>
+        </Grid>
+        <Grid item xs={6}>
+          <h3></h3>
         </Grid>
       </Grid>
     </>

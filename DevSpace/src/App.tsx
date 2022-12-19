@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Auth from "../src/pages/Auth/Auth";
 import Dashboard from "../src/pages/Dashboard/Dashboard";
+import Developers from '../src/pages/Developers/Developers';
+import Developer from '../src/pages/Developer/Developer';
 import { ThemeProvider, createTheme } from "@mui/material";
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Auth />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/developers" element={<Developers />} />
+          <Route path="/developer/:id" element={<Developer />} />
         </Routes>
       </Router>
     </ThemeProvider>
