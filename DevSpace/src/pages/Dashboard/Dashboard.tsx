@@ -1,16 +1,15 @@
 import { useGetDeveloperDetailsQuery } from "../../features/currentUser/userAPI";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../app/store";
 import ResponsiveAppBar from "../../components/AppBar/AppBar";
 import { Grid, Typography } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import "./style.scss";
-import RepoList from '../../components/RepoList/RepoList';
-
+import RepoList from "../../components/RepoList/RepoList";
 
 interface ICurrentUser {
   currentUser: Object;
@@ -43,7 +42,7 @@ function Dashboard() {
   let email = localStorage.getItem("email");
   useGetDeveloperDetailsQuery(email);
 
-const reload = () => {
+  const reload = () => {
     window.location.reload();
   };
 
@@ -58,12 +57,11 @@ const reload = () => {
     setDeveloper(currentUserDetails);
   }
 
-  if (developer?.length == 0) {
+  if (developer?.length === 0) {
     reload();
   }
 
   console.log(currentUserDetails);
-
 
   return (
     <>
@@ -80,7 +78,11 @@ const reload = () => {
             padding: "30px",
           }}
         >
-          <Typography>Welcome, {currentUserDetails?.firstName}</Typography>
+          {currentUser ? (
+            <Typography> Welcome, {currentUserDetails?.firstName} </Typography>
+          ) : (
+            <Typography>Please log in</Typography>
+          )}
           <Typography>
             You have {currentUserDetails?.messages.length} messages
           </Typography>
@@ -144,7 +146,12 @@ const reload = () => {
           }}
         >
           <Typography variant="h5">Companies Hiring Nearby</Typography>
-          <Grid container spacing={1} justifyContent="space-evenly" style={{ marginTop: "5px"}}>
+          <Grid
+            container
+            spacing={1}
+            justifyContent="space-evenly"
+            style={{ marginTop: "5px" }}
+          >
             <Grid item xs={2} style={{ margin: "2px" }}>
               <Card sx={{ maxWidth: 300, maxHeight: 200 }}>
                 <CardActionArea>
@@ -197,7 +204,7 @@ const reload = () => {
                     height="140"
                     image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyPWWSnn4AuomXejounLfbztxlmwggAsCMTSYJSNP6lK6y_5tF1oEiiE3rLtqXT2J0ArE&usqp=CAU"
                     alt="company logo"
-                    style={{ objectFit: 'cover'}}
+                    style={{ objectFit: "cover" }}
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h6" component="div">
@@ -220,7 +227,7 @@ const reload = () => {
                     height="140"
                     image="https://media-exp1.licdn.com/dms/image/C560BAQFhfxNj8OUHuw/company-logo_200_200/0/1652822994884?e=1678924800&v=beta&t=jFf5__RgiTibft1yrLakWZnBn0dOBBnzCF8Uff6hQuI"
                     alt="company logo"
-                    style={{ objectFit: 'cover'}}
+                    style={{ objectFit: "cover" }}
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h6" component="div">
@@ -257,7 +264,6 @@ const reload = () => {
                 </CardActions>
               </Card>
             </Grid>
-            
           </Grid>
         </Grid>
         <Grid item xs={6}>

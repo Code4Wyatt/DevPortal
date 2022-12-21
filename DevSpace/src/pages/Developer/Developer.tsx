@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { Grid, Typography, Avatar } from "@mui/material";
 import ProjectsList from "../../components/ProjectsList/ProjectsList";
+import ProjectListItem from "../../components/ProjectListItem/ProjectListItem";
 
 interface ICurrentUser {
   currentUser: Object;
@@ -61,7 +62,7 @@ const Developer: React.FC = () => {
   return (
     <>
       <AppBar />
-      <Grid container spacing={1} marginLeft={51} marginRight={51} width="80%">
+      <Grid container spacing={1} position='relative' left={'23%'} width="80%">
         <Grid
           item
           xs={8}
@@ -102,7 +103,7 @@ const Developer: React.FC = () => {
           }}
         >
           <Typography>Projects</Typography>
-                  <ProjectsList />
+                  <ProjectListItem />
         </Grid>
         <Grid
           item
@@ -116,7 +117,7 @@ const Developer: React.FC = () => {
           }}
         >
           <Typography>Experience</Typography>
-                  Yer Maw
+                  
         </Grid>
         <Grid item xs={4}></Grid>
         <Grid item xs={4}></Grid>
