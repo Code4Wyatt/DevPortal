@@ -53,7 +53,7 @@ function Dashboard() {
   );
 
   let currentUserDetails = currentUser?.currentUser as ICurrentUser;
-  if (currentUserDetails !== developer) {
+  if (currentUserDetails != developer) {
     setDeveloper(currentUserDetails);
   }
 

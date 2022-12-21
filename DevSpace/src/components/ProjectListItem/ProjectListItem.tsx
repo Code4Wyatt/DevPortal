@@ -6,18 +6,25 @@ import Java from "../../assets/icons/java/java-original.svg";
 import ReactIcon from "../../assets/icons/react/react-original.svg";
 import Docker from "../../assets/icons/docker/docker-original.svg";
 
-const ProjectListItem = () => {
+interface Project {
+    projectName: string;
+    projectLink: string;
+    gitHubRepoLink: string;
+    technologiesUsed: Array<string>;
+}
+
+const ProjectListItem = (projectProps: Project) => {
   return (
     <div className="project-list-item">
       <Grid container spacing={2}>
-        <Grid item xs={4}>
-          <Typography marginLeft={5}>Unison</Typography>
+        <Grid item xs={4} justifyContent={"center"}>
+          <Typography marginLeft={15}>{projectProps.projectName}</Typography>
         </Grid>
-        <Grid item xs={4} display="flex">
+        <Grid item xs={4} display="flex" justifyContent={"center"}>
           <Typography marginRight={3}>View Project</Typography>
           <Typography>View GitHub</Typography>
         </Grid>
-        <Grid item xs={4} display="flex" justifyContent={"flex-end"}>
+        <Grid item xs={4} display="flex" justifyContent={"center"}>
           <img src={Javascript} className="languageLogo" />
           <img src={Java} className="languageLogo" />
           <img src={ReactIcon} className="languageLogo" />

@@ -82,7 +82,7 @@ function ResponsiveAppBar() {
   console.log(currentUserDetails?.profileImage);
 
   return (
-    <AppBar position="static" style={{ background: '#2E3B55' }}>
+    <AppBar position="static" style={{ background: '#2E3B55', width: '100vw' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
