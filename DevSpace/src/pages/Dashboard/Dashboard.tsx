@@ -78,8 +78,8 @@ function Dashboard() {
             padding: "30px",
           }}
         >
-          {currentUser ? (
-            <Typography> Welcome, {currentUserDetails?.firstName} </Typography>
+          {developer ? (
+            <Typography> Welcome, {developer?.firstName} </Typography>
           ) : (
             <Typography>Please log in</Typography>
           )}

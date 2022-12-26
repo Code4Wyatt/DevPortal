@@ -1,15 +1,15 @@
 import "./style.scss";
-import ResponsiveAppBar from "../../components/AppBar/AppBar";
 import { useState } from "react";
 import { useGetDeveloperDetailsQuery } from "../../features/currentUser/userAPI";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { Grid, Typography, Avatar, Link } from "@mui/material";
+import { Grid, Typography, Avatar } from "@mui/material";
 import ProjectsList from "../../components/ProjectsList/ProjectsList";
 import ProjectListItem from "../../components/ProjectListItem/ProjectListItem";
+import ResponsiveAppBar from "../../components/AppBar/AppBar";
 import LinkedInLogo from "../../assets/icons/linkedin.png";
 import GitHubLogo from "../../assets/icons/github.png";
-
+import ExperienceListItem from "../../components/ExperienceListItem/ExperienceListItem";
 interface ICurrentUser {
   currentUser: Object;
   companiesFollowing: [];
@@ -54,7 +54,6 @@ const Developer: React.FC = () => {
   let currentUserDetails = currentUser?.currentUser as ICurrentUser;
   if (currentUserDetails !== developer) {
     setDeveloper(currentUserDetails);
-    reload();
   }
 
   if (developer?.length === 0) {
@@ -62,11 +61,11 @@ const Developer: React.FC = () => {
   }
 
   console.log(currentUserDetails);
-  
+
   return (
     <>
       <ResponsiveAppBar />
-      <Grid container spacing={1} position="relative" left={"23%"} width="80%">
+      <Grid container spacing={1} position="relative" left={"25vw"}  right={"25vw"} width="80%" minWidth={"60%"} className='container'>
         <Grid
           item
           xs={8}
@@ -79,7 +78,7 @@ const Developer: React.FC = () => {
           }}
         >
           <Avatar
-            alt="Remy Sharp"
+            alt="Profile Image"
             src={developer?.profileImage}
             sx={{ height: "70px", width: "70px" }}
           />
@@ -108,7 +107,7 @@ const Developer: React.FC = () => {
           xs={8}
           className="developer__page-developer-details"
           style={{
-            height: "130px",
+            height: "100%",
             marginTop: "20px",
             padding: "30px",
             minHeight: "55vh",
@@ -145,13 +144,14 @@ const Developer: React.FC = () => {
           xs={8}
           className="developer__page-developer-details"
           style={{
-            height: "130px",
+            height: "100%",
             marginTop: "20px",
             padding: "30px",
             minHeight: "55vh",
           }}
         >
           <Typography>Experience</Typography>
+          <ExperienceListItem />
         </Grid>
         <Grid item xs={4}></Grid>
         <Grid item xs={4}></Grid>
