@@ -54,6 +54,7 @@ const Developer: React.FC = () => {
   let currentUserDetails = currentUser?.currentUser as ICurrentUser;
   if (currentUserDetails !== developer) {
     setDeveloper(currentUserDetails);
+    reload();
   }
 
   if (developer?.length === 0) {
@@ -61,6 +62,7 @@ const Developer: React.FC = () => {
   }
 
   console.log(currentUserDetails);
+  
   return (
     <>
       <ResponsiveAppBar />
