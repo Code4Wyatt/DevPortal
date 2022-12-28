@@ -50,10 +50,10 @@ const ProjectListItem = (projectProps: Project) => {
           </Typography>
         </Grid>
         <Grid item xs={4} sx={{display: {lg: 'flex'}, position: 'relative', top: {xs: '-40px', lg: '20px'}, bottom: {lg: '200px'}, left: '5%'}}>
-          <Button sx={{ backgroundColor: 'purple', color: 'white', height: '10px', fontSize: {xs: '10px'}, position: {xs: 'absolute', lg: 'relative'}, bottom: {xs: '-5px', lg: '20px'}, left: {xs: '10px', lg: '100%'} }}>
+          <Button sx={{ backgroundColor: 'purple', color: 'white', height: '10px', fontSize: {xs: '10px'}, position: {xs: 'absolute', lg: 'relative'}, bottom: {xs: '-5px', lg: '20px'}, left: {xs: '10px', lg: '110%'} }}>
             View Demo
           </Button>
-          <Button sx={{ backgroundColor: 'blue', color: 'white', height: '10px', fontSize: {xs: '10px'}, position: {xs: 'absolute',lg: 'relative'}, bottom: {xs: '-30px', lg: '0px'}, left: {xs: '10px', lg: '80%'} }}>
+          <Button sx={{ backgroundColor: 'blue', color: 'white', height: '10px', fontSize: {xs: '10px'}, position: {xs: 'absolute',lg: 'relative'}, bottom: {xs: '-30px', lg: '0px'}, left: {xs: '10px', lg: '90%'} }}>
            GitHub
           </Button>
         </Grid>
