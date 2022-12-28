@@ -13,7 +13,7 @@ type FormData = {
   password: string;
 };
 
-const Login = () => {
+const Login: React.FC = () => {
   const {
     register,
     handleSubmit,
