@@ -1,9 +1,9 @@
 import React from "react";
 import "./style.scss";
-import { Grid, Typography, Button, Box, createTheme } from "@mui/material";
+import { Grid, Typography, Box, createTheme } from "@mui/material";
 
 const ExperienceListItem = () => {
-   const theme = createTheme({
+  const theme = createTheme({
     breakpoints: {
       values: {
         xs: 0,
@@ -13,8 +13,8 @@ const ExperienceListItem = () => {
         xl: 1536,
       },
     },
-   });
-  
+  });
+
   return (
     <Grid
       container
@@ -47,9 +47,8 @@ const ExperienceListItem = () => {
             width: { xs: "60%", lg: "30%" },
             position: "relative",
             bottom: { xs: "80px" },
-            left: { xs: "30px" },
-            
-         
+            left: { xs: "20px", lg: "3px" },
+            top: { lg: "-10px" },
           }}
         >
           <Typography marginLeft={5} marginBottom={0}>
@@ -72,14 +71,26 @@ const ExperienceListItem = () => {
             Remote
           </Typography>
         </Grid>
-        <Grid item sx={{
+        <Grid
+          item
+          sx={{
             width: { xs: "60%", lg: "100%" },
             position: "absolute",
             bottom: { xs: "80%" },
-          left: { xs: "100px", lg: '80%' },
-            
-          }}>
-          <Typography color="lightgrey" sx={{ fontSize: { xs: "10px"}, position: 'relative', left: {xs: '70px'}, bottom: {xs: '10px'}}}>Jan 2000 -  Jun 2020</Typography>
+            left: { xs: "100px", lg: "80%" },
+          }}
+        >
+          <Typography
+            color="lightgrey"
+            sx={{
+              fontSize: { xs: "10px" },
+              position: "relative",
+              left: { xs: "70px" },
+              bottom: { xs: "10px" },
+            }}
+          >
+            Jan 2000 - Jun 2020
+          </Typography>
         </Grid>
       </Grid>
 
@@ -96,7 +107,7 @@ const ExperienceListItem = () => {
           marginLeft={5}
           color="lightgrey"
           width="100%"
-          sx={{ fontSize: { xs: "10px" } }}
+          sx={{ fontSize: { xs: "9px", lg: "12px" } }}
         >
           - Updated Spotify backend system and song quality using Java.
         </Typography>
@@ -104,7 +115,7 @@ const ExperienceListItem = () => {
           marginLeft={5}
           color="lightgrey"
           width="100%"
-          sx={{ fontSize: { xs: "9px" } }}
+          sx={{ fontSize: { xs: "9px", lg: "12px" } }}
         >
           - Contributed to loads of awesome updates that made me the best ever
           employee in the music industry everrr.
@@ -113,7 +124,7 @@ const ExperienceListItem = () => {
           marginLeft={5}
           color="lightgrey"
           width="100%"
-          sx={{ fontSize: { xs: "9px" }}}
+          sx={{ fontSize: { xs: "9px", lg: "12px" } }}
         >
           - Won Spotify Employee of the Day award every day of employment.
         </Typography>

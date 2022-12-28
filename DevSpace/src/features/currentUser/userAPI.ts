@@ -18,6 +18,24 @@ export const authApi = createApi({
   }),
 });
 
+export const employerApi = createApi({
+  reducerPath: "employerApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:8000/auth/employer-login",
+  }),
+  endpoints: (builder) => ({
+    loginUser: builder.mutation({
+      query: (body: { email: string; password: string }) => {
+        return {
+          url: "/",
+          method: "post",
+          body,
+        };
+      },
+    }),
+  }),
+});
+
 let email = localStorage.getItem('email')
 let token = localStorage.getItem('token')
 
