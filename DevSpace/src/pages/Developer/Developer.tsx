@@ -120,7 +120,7 @@ const Developer: React.FC = () => {
               Motivated Junior developer specialising in React and React Native developement with previous experience working on enterprise level projects.
             </Typography>
           </Grid>
-          <Grid item display="flex" sx={{ position: 'absolute', marginTop: '10px', marginRight: '10px', left: { xs: '75%', md: '85%', lg: '80%' }}}>
+          <Grid item display="flex" sx={{ position: 'absolute', marginTop: '30px', marginRight: '10px', left: { xs: '75%', md: '85%', lg: '79%' }}}>
             <a href="http://www.github.com">
               <img src={LinkedInLogo} height="20px" className="socialLogo" />
             </a>
@@ -131,7 +131,6 @@ const Developer: React.FC = () => {
         </Grid>
         <Grid
           item
-
           className="developer__page-developer-details"
           style={{
             height: "100%",
@@ -141,7 +140,7 @@ const Developer: React.FC = () => {
           }}
            sx={{ width: { xs: '90%', sm: '90%', lg: '70%', xl: '70%'}, marginLeft: { xs: '5%', sm: '5%', lg: '15%' }}}
         >
-          <Typography>Projects</Typography>
+          <Typography sx={{ position: 'relative', left: '50px'}}>Projects</Typography>
           <ProjectListItem
             projectName="Unison"
             projectDescription="Social Network for musicians aimed at developing new musical connections and inspiring new music."

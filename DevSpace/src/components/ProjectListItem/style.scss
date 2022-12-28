@@ -1,17 +1,16 @@
 .project-list-item {
-    background-color: rgba(27, 27, 133, 0.552);
-    height: 170px;
-    position: relative;
-    margin-top: 15px;
-    margin: 50px;
+    background-color: rgba(27, 27, 133, 0.255);
 }
 
 .project-list-item:hover {
-    background-color: rgba(27, 133, 39, 0.321);
-    height: 170px;
+    background-color: rgba(82, 27, 133, 0.321);
+}
+
+.project-image-preview {
+    height: 140px;
     position: relative;
-    margin-top: 15px;
-    margin: 50px;
+    left: 30px;
+    top: 15px;
 }
 
 .languageLogo {
