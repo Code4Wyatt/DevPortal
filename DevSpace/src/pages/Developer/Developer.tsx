@@ -97,25 +97,30 @@ const Developer: React.FC = () => {
             marginTop: "20px",
             display: "flex",
           }}
-          sx={{ width: { xs: '90%', sm: '90%', lg: '90%', xl: '90%'}, marginLeft: { xs: '5%', sm: '5%', lg: '5%' }}}
+          sx={{ width: { xs: '90%', sm: '90%', lg: '70%', xl: '70%'}, marginLeft: { xs: '5%', sm: '5%', lg: '15%' }}}
         >
           <Avatar
             alt="Profile Image"
             src={developer?.profileImage}
-            sx={{ height: "70px", width: "70px" }}
+            sx={{ height: {xs: "50px", lg: '70px'}, width: {xs: '50px', lg:'70px'}, position: 'relative', left: { xs: "10px", lg: '30px'}, top: { xs: "10px", lg: '25%'} }}
           />
-          <Grid item xs={15}>
-            <Typography sx={{ }}>
+          <Grid item sx={{ position: 'relative', left: { xs: "30px", lg: '60px'}, top: { xs: "10px", lg: '30px'}, width: {xs: "200px", lg: '200px'}}}>
+            <Typography sx={{ fontSize: { xs: '14px', lg: '16px'} }}>
               {developer?.firstName} {developer?.lastName}
             </Typography>
-            <Typography sx={{  }}>
+            <Typography sx={{ fontSize: { xs: '14px', lg: '16px'}   }}>
               {developer?.location}
             </Typography>
-            <Typography sx={{  }}>
-              Experience Level: Junior
+            <Typography sx={{ color: 'grey', fontSize: { xs: '14px', lg: '16px'}  }}>
+              Junior Developer
             </Typography>
           </Grid>
-          <Grid item xs={4} justifyContent={"flex-end"} display="flex">
+          <Grid item sx={{ position: {xs: 'absolute', lg:'relative'}, left: { xs: "35px", lg: '60px'}, top: { xs: "95px", lg: '30px'}, width: {xs: "380px", lg: '500px'}}}>
+            <Typography sx={{ fontSize: { xs: '11px', lg: '16px'} }}>
+              Motivated Junior developer specialising in React and React Native developement with previous experience working on enterprise level projects.
+            </Typography>
+          </Grid>
+          <Grid item display="flex" sx={{ position: 'absolute', marginTop: '10px', marginRight: '10px', left: { xs: '75%', md: '85%', lg: '80%' }}}>
             <a href="http://www.github.com">
               <img src={LinkedInLogo} height="20px" className="socialLogo" />
             </a>
@@ -126,7 +131,7 @@ const Developer: React.FC = () => {
         </Grid>
         <Grid
           item
-          xs={8}
+
           className="developer__page-developer-details"
           style={{
             height: "100%",
@@ -134,6 +139,7 @@ const Developer: React.FC = () => {
             padding: "30px",
             minHeight: "55vh",
           }}
+           sx={{ width: { xs: '90%', sm: '90%', lg: '70%', xl: '70%'}, marginLeft: { xs: '5%', sm: '5%', lg: '15%' }}}
         >
           <Typography>Projects</Typography>
           <ProjectListItem
@@ -167,7 +173,6 @@ const Developer: React.FC = () => {
         </Grid>
         <Grid
           item
-          xs={8}
           className="developer__page-developer-details"
           style={{
             height: "100%",
@@ -175,6 +180,7 @@ const Developer: React.FC = () => {
             padding: "30px",
             minHeight: "55vh",
           }}
+           sx={{ width: { xs: '90%', sm: '90%', lg: '70%', xl: '70%'}, marginLeft: { xs: '5%', sm: '5%', lg: '15%' }}}
         >
           <Typography>Experience</Typography>
           <ExperienceListItem />
