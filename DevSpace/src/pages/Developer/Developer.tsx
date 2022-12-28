@@ -3,13 +3,16 @@ import { useState } from "react";
 import { useGetDeveloperDetailsQuery } from "../../features/currentUser/userAPI";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { Grid, Typography, Avatar } from "@mui/material";
+import { Grid, Typography, Avatar, createTheme } from "@mui/material";
 import ProjectsList from "../../components/ProjectsList/ProjectsList";
 import ProjectListItem from "../../components/ProjectListItem/ProjectListItem";
 import ResponsiveAppBar from "../../components/AppBar/AppBar";
 import LinkedInLogo from "../../assets/icons/linkedin.png";
 import GitHubLogo from "../../assets/icons/github.png";
 import ExperienceListItem from "../../components/ExperienceListItem/ExperienceListItem";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 interface ICurrentUser {
   currentUser: Object;
   companiesFollowing: [];
@@ -37,6 +40,26 @@ interface IData {
 }
 
 const Developer: React.FC = () => {
+  const theme = createTheme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 480,
+        md: 900,
+        lg: 1200,
+        xl: 1536,
+      },
+    },
+  });
+
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
+  const matchesMD = useMediaQuery(theme.breakpoints.only("md"));
+
+  const dynamicStyles = {
+    ...(matchesSM && { position: 'relative', right: '0vw', width: "100%", margin: 1 }),
+    ...(matchesMD && { backgroundColor: "blue" }),
+  };
+
   let [developer, setDeveloper] = useState<ICurrentUser>();
   let email = localStorage.getItem("email");
   useGetDeveloperDetailsQuery(email);
@@ -65,10 +88,10 @@ const Developer: React.FC = () => {
   return (
     <>
       <ResponsiveAppBar />
-      <Grid container spacing={1} position="relative" left={"25vw"}  right={"25vw"} width="80%" minWidth={"60%"} className='container'>
+      <Grid container position="relative" className="container">
         <Grid
           item
-          xs={8}
+         
           className="developer__page-developer-details"
           style={{
             height: "130px",
@@ -76,6 +99,7 @@ const Developer: React.FC = () => {
             padding: "30px",
             display: "flex",
           }}
+          sx={{ ...dynamicStyles }}
         >
           <Avatar
             alt="Profile Image"
@@ -83,17 +107,17 @@ const Developer: React.FC = () => {
             sx={{ height: "70px", width: "70px" }}
           />
           <Grid item xs={15}>
-            <Typography sx={{ marginLeft: "30px" }}>
+            <Typography sx={{ marginLeft: { xs: "12%", md: "50%" }, width: { xs: "100%"}, fontSize: '12px' }}>
               {developer?.firstName} {developer?.lastName}
             </Typography>
-            <Typography sx={{ marginLeft: "30px" }}>
+            <Typography sx={{ marginLeft: { xs: "12%", md: "40%" }, width: { xs: "100%"}, fontSize: '12px' }}>
               {developer?.location}
             </Typography>
-            <Typography sx={{ marginLeft: "30px" }}>
-              Experience Level: Junior
+            <Typography sx={{ marginLeft: { xs: "12%", md: "50%" }, width: { xs: "100%"}, fontSize: '12px' }}>
+              Experience: Junior
             </Typography>
           </Grid>
-          <Grid item xs={4} justifyContent={"flex-end"} display="flex">
+          <Grid item xs={4} display="flex" sx={{ position: { xs: "absolute"}, right: { xs: "5px", md: ""}}}>
             <a href="http://www.github.com">
               <img src={LinkedInLogo} height="20px" className="socialLogo" />
             </a>
@@ -116,24 +140,28 @@ const Developer: React.FC = () => {
           <Typography>Projects</Typography>
           <ProjectListItem
             projectName="Unison"
+            projectDescription="Social Network for musicians aimed at developing new musical connections and inspiring new music."
             projectLink="blah"
             gitHubRepoLink=""
             technologiesUsed={["Java"]}
           />
           <ProjectListItem
             projectName="DevPortal"
+            projectDescription="Application for developers to showcase their projects and experience and connect with employers."
             projectLink="blah"
             gitHubRepoLink=""
             technologiesUsed={["Java"]}
           />
           <ProjectListItem
             projectName="WeChat"
+            projectDescription="Chat application with added functionality to send payments."
             projectLink="blah"
             gitHubRepoLink=""
             technologiesUsed={["Java"]}
           />
           <ProjectListItem
             projectName="ADHDone"
+            projectDescription="Mobile and web application for managing ADHD symptoms and improving lifestyle."
             projectLink="blah"
             gitHubRepoLink=""
             technologiesUsed={["Java"]}

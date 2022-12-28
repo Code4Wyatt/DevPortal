@@ -57,7 +57,7 @@ function Dashboard() {
     setDeveloper(currentUserDetails);
   }
 
-  if (developer?.length === 0) {
+  if (developer?.length == 0) {
     reload();
   }
 

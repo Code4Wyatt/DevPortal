@@ -1,6 +1,14 @@
 .project-list-item {
     background-color: rgba(27, 27, 133, 0.552);
-    height: 60px;
+    height: 170px;
+    position: relative;
+    margin-top: 15px;
+    margin: 50px;
+}
+
+.project-list-item:hover {
+    background-color: rgba(27, 133, 39, 0.321);
+    height: 170px;
     position: relative;
     margin-top: 15px;
     margin: 50px;

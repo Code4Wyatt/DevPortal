@@ -2,17 +2,12 @@
 
 .developer__page-developer-details {
     margin-top: 200px;
-    background-color: #46315a32;
-
+    background-color: #1dc13032;
+    margin-left: 18%;
 }
 
 .socialLogo {
     height: 20px;
     margin-right: 20px;
+    background-color: #46315a32;
 }
-
-@media (max-width: 480px) {
-    .container {
-      width: 100%;
-    }
-  }

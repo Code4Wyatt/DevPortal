@@ -7,7 +7,8 @@ import ReactIcon from "../../assets/icons/react/react-original.svg";
 import Docker from "../../assets/icons/docker/docker-original.svg";
 
 interface Project {
-    projectName: string;
+  projectName: string;
+  projectDescription: string;
     projectLink: string;
     gitHubRepoLink: string;
     technologiesUsed: Array<string>;
@@ -18,7 +19,8 @@ const ProjectListItem = (projectProps: Project) => {
     <div className="project-list-item">
       <Grid container spacing={2}>
         <Grid item xs={4} justifyContent={"center"}>
-          <Typography marginLeft={5}>{projectProps.projectName}</Typography>
+          <Typography marginLeft={5} marginBottom={1}>{projectProps.projectName}</Typography>
+          <Typography marginLeft={5} color='grey' width="100%">{projectProps.projectDescription}</Typography>
         </Grid>
         <Grid item xs={4} display="flex" justifyContent={"center"}>
           <Button sx={{ position: 'relative', bottom: '25%'}}>View Project</Button>
