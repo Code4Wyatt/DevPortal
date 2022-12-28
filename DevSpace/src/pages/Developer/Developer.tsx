@@ -56,7 +56,7 @@ const Developer: React.FC = () => {
   const matchesMD = useMediaQuery(theme.breakpoints.only("md"));
 
   const dynamicStyles = {
-    ...(matchesSM && { position: 'relative', right: '0vw', width: "100%", margin: 1 }),
+    ...(matchesSM && { position: 'relative', right: '0vw', width: "100%", color: "red", margin: 1 }),
     ...(matchesMD && { backgroundColor: "blue" }),
   };
 
@@ -91,15 +91,13 @@ const Developer: React.FC = () => {
       <Grid container position="relative" className="container">
         <Grid
           item
-         
           className="developer__page-developer-details"
           style={{
             height: "130px",
             marginTop: "20px",
-            padding: "30px",
             display: "flex",
           }}
-          sx={{ ...dynamicStyles }}
+          sx={{ width: { xs: '90%', sm: '90%', lg: '90%', xl: '90%'}, marginLeft: { xs: '5%', sm: '5%', lg: '5%' }}}
         >
           <Avatar
             alt="Profile Image"
@@ -107,17 +105,17 @@ const Developer: React.FC = () => {
             sx={{ height: "70px", width: "70px" }}
           />
           <Grid item xs={15}>
-            <Typography sx={{ marginLeft: { xs: "12%", md: "50%" }, width: { xs: "100%"}, fontSize: '12px' }}>
+            <Typography sx={{ }}>
               {developer?.firstName} {developer?.lastName}
             </Typography>
-            <Typography sx={{ marginLeft: { xs: "12%", md: "40%" }, width: { xs: "100%"}, fontSize: '12px' }}>
+            <Typography sx={{  }}>
               {developer?.location}
             </Typography>
-            <Typography sx={{ marginLeft: { xs: "12%", md: "50%" }, width: { xs: "100%"}, fontSize: '12px' }}>
-              Experience: Junior
+            <Typography sx={{  }}>
+              Experience Level: Junior
             </Typography>
           </Grid>
-          <Grid item xs={4} display="flex" sx={{ position: { xs: "absolute"}, right: { xs: "5px", md: ""}}}>
+          <Grid item xs={4} justifyContent={"flex-end"} display="flex">
             <a href="http://www.github.com">
               <img src={LinkedInLogo} height="20px" className="socialLogo" />
             </a>
