@@ -16,7 +16,7 @@ import {
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
-} from 'react-places-autocomplete';
+} from "react-places-autocomplete";
 
 interface IDeveloper {
   firstName: string;
@@ -63,26 +63,32 @@ const languages = [
   "Dart",
 ];
 
+const experienceLevels = [
+  'Graduate (0 years)',
+  'Junior (1 - 3 years)',
+  'Mid (3 - 5 years)',
+  'Senior (5 years +)'
+]
+
 interface ICoordinates {
-  lat: number,
-  lng: number
+  lat: number;
+  lng: number;
 }
 
 const Developers = () => {
   const [allDevelopers, setAllDevelopers] = useState<any[]>();
   const [searchText, setSearchText] = useState("");
   const [matchingLocations, setMatchingLocations] = useState<any[]>([]);
-  const [address, setAddress] = useState<string>();
+  const [address, setAddress] = useState<string>("");
   const [coordinates, setCoordinates] = useState<ICoordinates>();
-
- const handleSelect = async (value: string) => {
+  const [location, setLocation] = useState<any>('Please select location');
+  const handleSelect = async (value: string) => {
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
     setAddress(value);
     setCoordinates(latLng);
   };
-
-
+  console.log(location)
   useEffect(() => {
     const fetchAllDevelopers = async () => {
       let response = await fetch(`http://localhost:8000/developer/all`);
@@ -112,43 +118,47 @@ const Developers = () => {
           }}
         >
           <PlacesAutocomplete
-        value={address}
-        onChange={setAddress}
-        onSelect={handleSelect}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
-            <input
-              {...getInputProps({
-                placeholder: 'Search Places ...',
-                className: 'location-search-input',
-              })}
-            />
-            <div className="autocomplete-dropdown-container">
-              {loading && <div>Loading...</div>}
-              {suggestions.map(suggestion => {
-                const className = suggestion.active
-                  ? 'suggestion-item--active'
-                  : 'suggestion-item';
-                // inline style for demonstration purpose
-                const style = suggestion.active
-                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                return (
-                  <div
-                    {...getSuggestionItemProps(suggestion, {
-                      className,
-                      style,
+            value={address}
+            onChange={setAddress}
+            onSelect={handleSelect}
+          >
+            {({
+              getInputProps,
+              suggestions,
+              getSuggestionItemProps,
+              loading,
+            }) => (
+              <div>
+                <TextField
+                  {...getInputProps({ placeholder: `${location?.description}`})}
+                  sx={{ position: "relative", top: '20%'}}
+                />
+
+                <Grid item sx={{ position: 'relative', top: '50px'}}>
+                  {loading ? <div>...loading</div> : null}
+
+                  {suggestions &&
+                    suggestions.map((suggestion) => {
+                      const style = {
+                        backgroundColor: suggestion.active
+                          ? "#41b6e6"
+                          : "#081229",
+                        cursor: 'pointer'
+                      };
+
+                      return (
+                        <div
+                          {...getSuggestionItemProps(suggestion, { style })}
+                          onClick={() => setLocation(suggestion)}
+                        >
+                          {suggestion.description}
+                        </div>
+                      );
                     })}
-                  >
-                    <span>{suggestion.description}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </PlacesAutocomplete>
+                </Grid>
+              </div>
+            )}
+          </PlacesAutocomplete>
           <TextField
             id="outlined-basic"
             label="Search Locations"
@@ -158,10 +168,9 @@ const Developers = () => {
               top: "20%",
               borderColor: "white",
               color: "white",
-              display: 'none'
+              display: "none",
             }}
             value={searchText}
-          
           />
           <List>
             {matchingLocations.map((location) => (
@@ -176,7 +185,7 @@ const Developers = () => {
               select
               label="Select"
               defaultValue="EUR"
-              helperText="Please select programming language"
+              helperText="Select programming language"
               sx={{
                 position: "relative",
                 top: "20%",
@@ -205,7 +214,7 @@ const Developers = () => {
               select
               label="Select"
               defaultValue="EUR"
-              helperText="Please select your currency"
+              helperText="Select experience level"
               sx={{
                 position: "relative",
                 top: "20%",
@@ -213,7 +222,7 @@ const Developers = () => {
                 color: "white",
               }}
             >
-              {languages.map((option) => (
+              {experienceLevels.map((option) => (
                 <MenuItem key={option} value={option}>
                   {option}
                 </MenuItem>

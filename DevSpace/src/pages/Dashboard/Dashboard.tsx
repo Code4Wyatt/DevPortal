@@ -72,7 +72,7 @@ function Dashboard() {
           item
           xs={3}
           style={{
-            background: "#2E3B55",
+            background: "#46315a32",
             height: "300px",
             marginTop: "20px",
             padding: "30px",
