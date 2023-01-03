@@ -101,6 +101,7 @@ const Developers: React.FC = () => {
 
   console.log(address);
   console.log(language);
+
   useEffect(() => {
     const searchDevelopers = async (
       address: string,
@@ -110,7 +111,7 @@ const Developers: React.FC = () => {
       const queryParams = new URLSearchParams();
       queryParams.set("location", address);
       if (language) {
-        queryParams.set("language", language);
+        queryParams.set("languages", language);
       }
       if (experienceLevel) {
         queryParams.set("experienceLevel", experienceLevel);
@@ -124,7 +125,9 @@ const Developers: React.FC = () => {
     };
     searchDevelopers(address, language);
   }, [address, language, experienceLevel]);
+
   console.log(developerSearchResults);
+
   return (
     <>
       <AppBar />
@@ -160,6 +163,7 @@ const Developers: React.FC = () => {
                     placeholder: `${location?.description}`,
                   })}
                   sx={{ position: "relative", top: "20%" }}
+                  
                 />
 
                 <Grid
@@ -181,7 +185,7 @@ const Developers: React.FC = () => {
                       return (
                         <div
                           {...getSuggestionItemProps(suggestion, { style })}
-                          onClick={() => setLocation(suggestion)}
+                          onClick={() => setAddress(suggestion.description)}
                         >
                           {suggestion.description}
                         </div>
