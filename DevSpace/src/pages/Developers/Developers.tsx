@@ -79,6 +79,8 @@ const Developers: React.FC = () => {
   const [address, setAddress] = useState<string>("");
   const [coordinates, setCoordinates] = useState<ICoordinates>();
   const [location, setLocation] = useState<any>("Please select location");
+  const [language, setLanguage] = useState<string>();
+  const [experienceLevel, setExperienceLevel] = useState<string>();
   const handleSelect = async (value: string) => {
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
@@ -98,17 +100,31 @@ const Developers: React.FC = () => {
   }, []);
 
   console.log(address);
+  console.log(language);
   useEffect(() => {
-    const searchDevelopers = async (address: string) => {
-      let location = address;
-      let response = await fetch(`http://localhost:8000/developer/search?location=${location}`);
+    const searchDevelopers = async (
+      address: string,
+      language?: string,
+      experienceLevel?: string
+    ) => {
+      const queryParams = new URLSearchParams();
+      queryParams.set("location", address);
+      if (language) {
+        queryParams.set("language", language);
+      }
+      if (experienceLevel) {
+        queryParams.set("experienceLevel", experienceLevel);
+      }
+      let response = await fetch(
+        `http://localhost:8000/developer/search?${queryParams.toString()}`
+      );
       let data = await response.json();
-      setDeveloperSearchResults(data);
+      setDeveloperSearchResults(data.developers);
       console.log(developerSearchResults);
-    }
-    searchDevelopers(address);
-     }, [address]);
-
+    };
+    searchDevelopers(address, language);
+  }, [address, language, experienceLevel]);
+  console.log(developerSearchResults);
   return (
     <>
       <AppBar />
@@ -146,7 +162,10 @@ const Developers: React.FC = () => {
                   sx={{ position: "relative", top: "20%" }}
                 />
 
-                <Grid item sx={{ position: "relative", top: "50px", zIndex: '5' }}>
+                <Grid
+                  item
+                  sx={{ position: "relative", top: "50px", zIndex: "5" }}
+                >
                   {loading ? <div>...loading</div> : null}
 
                   {suggestions &&
@@ -156,7 +175,7 @@ const Developers: React.FC = () => {
                           ? "#41b6e6"
                           : "#081229",
                         cursor: "pointer",
-                        zIndex: 10
+                        zIndex: 10,
                       };
 
                       return (
@@ -207,18 +226,11 @@ const Developers: React.FC = () => {
               }}
             >
               {languages.map((option) => (
-                <MenuItem key={option} value={option}>
+                <MenuItem key={option} value={option} onClick={() => setLanguage(option)}>
                   {option}
                 </MenuItem>
               ))}
             </TextField>
-            <List>
-              {/* {matchingLocations.map((location) => (
-          <ListItem key={location.id}>
-            <ListItemText primary={location.name} />
-          </ListItem>
-        ))} */}
-            </List>
           </Grid>
 
           <Grid item>
@@ -236,18 +248,11 @@ const Developers: React.FC = () => {
               }}
             >
               {experienceLevels.map((option) => (
-                <MenuItem key={option} value={option}>
+                <MenuItem key={option} value={option} onClick={() => setExperienceLevel(option)}>
                   {option}
                 </MenuItem>
               ))}
             </TextField>
-            <List>
-              {/* {matchingLocations.map((location) => (
-          <ListItem key={location.id}>
-            <ListItemText primary={location.name} />
-          </ListItem>
-        ))} */}
-            </List>
           </Grid>
         </Grid>
 
@@ -264,14 +269,13 @@ const Developers: React.FC = () => {
             marginLeft: { xs: "5%", sm: "5%", lg: "15%" },
           }}
         >
-      
           <Grid
             container
             spacing={{ xs: 2, md: 3 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
-            sx={{ position: 'relative', left: '5%'}}
+            sx={{ position: "relative", left: "5%" }}
           >
-            {allDevelopers?.map((developer, index) => (
+            {developerSearchResults && developerSearchResults?.map((developer, index) => (
               <Grid item xs={2} sm={4} md={4} key={index}>
                 <DevCard
                   firstName={developer.firstName}
@@ -287,6 +291,22 @@ const Developers: React.FC = () => {
                 />
               </Grid>
             ))}
+            {/* {allDevelopers?.map((developer, index) => (
+              <Grid item xs={2} sm={4} md={4} key={index}>
+                <DevCard
+                  firstName={developer.firstName}
+                  lastName={developer.lastName}
+                  email={developer.email}
+                  statement={developer.statement}
+                  location={developer.location}
+                  profileImage={developer.profileImage}
+                  languages={developer.languages}
+                  projects={developer.projects}
+                  linkedIn={developer.linkedIn}
+                  gitHub={developer.gitHub}
+                />
+              </Grid>
+            ))} */}
           </Grid>
         </Grid>
       </Grid>
