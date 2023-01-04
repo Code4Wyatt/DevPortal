@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Avatar from "@mui/material/Avatar";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -15,6 +16,7 @@ import SwiftLogo from "../../assets/icons/swift/swift-original.svg";
 import RubyLogo from "../../assets/icons/ruby/ruby-original.svg";
 
 interface IDeveloper {
+  _id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -111,7 +113,7 @@ const DevCard: React.FunctionComponent<IDeveloper> = (props: IDeveloper) => {
   let level = words?.shift();
 
   return (
-    <Card
+    <Link to={`/developer/${props._id}`}><Card
       sx={{
         padding: 2,
         border: "1px solid blue",
@@ -148,7 +150,6 @@ const DevCard: React.FunctionComponent<IDeveloper> = (props: IDeveloper) => {
         </Grid>
         <Grid item display="flex">
           {props.languages.map((language) => {
-            console.log("l", language);
             return (
               <>
                 <LanguageIcon key={language} language={language} />
@@ -157,7 +158,8 @@ const DevCard: React.FunctionComponent<IDeveloper> = (props: IDeveloper) => {
           })}
         </Grid>
       </CardContent>
-    </Card>
+    </Card></Link>
+  
   );
 };
 

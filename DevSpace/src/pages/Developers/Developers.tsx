@@ -293,6 +293,7 @@ const Developers: React.FC = () => {
               developerSearchResults?.map((developer, index) => (
                 <Grid item xs={2} sm={4} md={4} key={index}>
                   <DevCard
+                    _id={developer._id}
                     firstName={developer.firstName}
                     lastName={developer.lastName}
                     email={developer.email}

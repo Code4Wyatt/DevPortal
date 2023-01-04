@@ -5,13 +5,26 @@ import Javascript from "../../assets/icons/javascript/javascript-original.svg";
 import Java from "../../assets/icons/java/java-original.svg";
 import ReactIcon from "../../assets/icons/React.svg";
 import Docker from "../../assets/icons/docker/docker-original.svg";
-
+import ReactLogo from "../../assets/icons/React.png";
+import TypeScriptLogo from "../../assets/icons/typescript/typescript-original.svg";
+import JavaScriptLogo from "../../assets/icons/javascript/javascript-original.svg";
+import JavaLogo from "../../assets/icons/java/java-original.svg";
+import KotlinLogo from "../../assets/icons/kotlin/kotlin-original.svg";
+import ReactNativeLogo from "../../assets/icons/ReactNative.png";
+import SwiftLogo from "../../assets/icons/swift/swift-original.svg";
+import RubyLogo from "../../assets/icons/ruby/ruby-original.svg";
+import RustLogo from '../../assets/icons/rust/rust-plain.svg';
+import GoLogo from '../../assets/icons/go/go-original.svg';
 interface Project {
   projectName: string;
   projectDescription: string;
   projectLink: string;
   gitHubRepoLink: string;
   technologiesUsed: Array<string>;
+}
+
+interface LanguageIconProps {
+  language: string;
 }
 
 const ProjectListItem = (projectProps: Project) => {
@@ -26,6 +39,55 @@ const ProjectListItem = (projectProps: Project) => {
       },
     },
   });
+
+  function LanguageIcon(props: LanguageIconProps) {
+    const { language } = props;
+    console.log(language);
+    let logo: string | undefined;
+
+    switch (language) {
+      case "JavaScript":
+        logo = JavaScriptLogo;
+        break;
+      case "TypeScript":
+        logo = TypeScriptLogo;
+        break;
+      case "React":
+        logo = ReactLogo;
+        break;
+      case "React Native":
+        logo = ReactNativeLogo;
+        break;
+      case "Java":
+        logo = JavaLogo;
+        break;
+      case "Kotlin":
+        logo = KotlinLogo;
+        break;
+      case "Swift":
+        logo = SwiftLogo;
+        break;
+      case "Ruby":
+        logo = RubyLogo;
+        break;
+      case "Rust":
+        logo = RustLogo;
+        break;
+      case "Go":
+        logo = GoLogo;
+        break;
+      default:
+        logo = undefined;
+    }
+
+    return (
+      <img
+        src={logo}
+        alt={language}
+        style={{ height: "20px", marginRight: "5px" }}
+      />
+    );
+  }
 
   return (
       <Grid container spacing={2} sx={{ margin: '5px', height: '170px', width: '95%', position: 'relative', left: '1%'}} className='project-list-item'>
@@ -58,10 +120,13 @@ const ProjectListItem = (projectProps: Project) => {
           </Button>
         </Grid>
         <Grid item display="flex" sx={{ zIndex: 1, position: 'absolute', bottom: {xs: '10px', lg: '30px'}, left: {xs: '50%', lg: '85%'}}}>
-          <img src={Javascript} className="languageLogo" />
-          <img src={Java} className="languageLogo" />
-          <img src={ReactIcon} className="languageLogo" />
-          <img src={Docker} className="languageLogo" />
+        {projectProps?.technologiesUsed?.map((technology) => {
+           return (
+              <>
+                <LanguageIcon key={technology} language={technology} />
+              </>
+            );
+         })}
         </Grid>
       </Grid>
   );

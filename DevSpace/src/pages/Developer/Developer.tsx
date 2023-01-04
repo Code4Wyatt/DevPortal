@@ -1,5 +1,5 @@
 import "./style.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useGetDeveloperDetailsQuery } from "../../features/currentUser/userAPI";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
@@ -12,6 +12,7 @@ import GitHubLogo from "../../assets/icons/github.png";
 import ExperienceListItem from "../../components/ExperienceListItem/ExperienceListItem";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { useParams } from "react-router-dom";
 
 interface ICurrentUser {
   currentUser: Object;
@@ -39,7 +40,17 @@ interface IData {
   currentUser: Object;
 }
 
+interface IProject {
+  projectName: string;
+  projectDescription: string;
+  projectLink: string;
+  gitHubRepoLink: string;
+  technologiesUsed: Array<string>;
+}
+
 const Developer: React.FC = () => {
+  const params = useParams();
+  let [developer, setDeveloper] = useState<any>();
   const theme = createTheme({
     breakpoints: {
       values: {
@@ -55,36 +66,50 @@ const Developer: React.FC = () => {
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const matchesMD = useMediaQuery(theme.breakpoints.only("md"));
 
-  const dynamicStyles = {
-    ...(matchesSM && { position: 'relative', right: '0vw', width: "100%", color: "red", margin: 1 }),
-    ...(matchesMD && { backgroundColor: "blue" }),
-  };
+  
+  useEffect(() => {
+    const fetchDeveloper = async () => {
+      let id = params.id;
+      let response = await fetch(`http://localhost:8000/developer/${id}`);
+      let data = await response.json();
+      console.log(data)
+      setDeveloper(data);
+    };
+    fetchDeveloper();
+  }, []);
 
-  let [developer, setDeveloper] = useState<ICurrentUser>();
-  let email = localStorage.getItem("email");
-  useGetDeveloperDetailsQuery(email);
+  // let experienceSpace = developer?.experienceLevel.indexOf(' ');
+  // let firstWord = experienceSpace.substr(0, experienceSpace);
+  // const dynamicStyles = {
+  //   ...(matchesSM && { position: 'relative', right: '0vw', width: "100%", color: "red", margin: 1 }),
+  //   ...(matchesMD && { backgroundColor: "blue" }),
+  // };
 
-  const reload = () => {
-    window.location.reload();
-  };
+  // let [developer, setDeveloper] = useState<ICurrentUser>();
+  // let email = localStorage.getItem("email");
+  // useGetDeveloperDetailsQuery(email);
 
-  const currentUser: any = useSelector(
-    (state: RootState) =>
-      state.fetchUserDetails.queries[`getDeveloperDetails("${email}")`]
-        ?.data as IData["currentUser"]
-  );
+  // const reload = () => {
+  //   window.location.reload();
+  // };
 
-  let currentUserDetails = currentUser?.currentUser as ICurrentUser;
-  if (currentUserDetails !== developer) {
-    setDeveloper(currentUserDetails);
-  }
+  // const currentUser: any = useSelector(
+  //   (state: RootState) =>
+  //     state.fetchUserDetails.queries[`getDeveloperDetails("${email}")`]
+  //       ?.data as IData["currentUser"]
+  // );
 
-  if (developer?.length === 0) {
-    reload();
-  }
+  // let currentUserDetails = currentUser?.currentUser as ICurrentUser;
+  // if (currentUserDetails !== developer) {
+  //   setDeveloper(currentUserDetails);
+  // }
 
-  console.log(currentUserDetails);
+  // if (developer?.length === 0) {
+  //   reload();
+  // }
 
+  // console.log(currentUserDetails);
+console.log(developer?.projects)
   return (
     <>
       <ResponsiveAppBar />
@@ -112,12 +137,12 @@ const Developer: React.FC = () => {
               {developer?.location}
             </Typography>
             <Typography sx={{ color: 'grey', fontSize: { xs: '14px', lg: '16px'}  }}>
-              Junior Developer
+              {developer?.experienceLevel}
             </Typography>
           </Grid>
           <Grid item sx={{ position: {xs: 'absolute', lg:'relative'}, left: { xs: "35px", lg: '60px'}, top: { xs: "95px", lg: '30px'}, width: {xs: "380px", lg: '500px'}}}>
             <Typography sx={{ fontSize: { xs: '11px', lg: '16px'} }}>
-              Motivated Junior developer specialising in React and React Native developement with previous experience working on enterprise level projects.
+              {developer?.statement}
             </Typography>
           </Grid>
           <Grid item display="flex" sx={{ position: 'absolute', marginTop: '30px', marginRight: '10px', left: { xs: '75%', md: '85%', lg: '79%' }}}>
@@ -140,24 +165,23 @@ const Developer: React.FC = () => {
           }}
            sx={{ width: { xs: '90%', sm: '90%', lg: '70%', xl: '70%'}, marginLeft: { xs: '5%', sm: '5%', lg: '15%' }}}
         >
-          <Typography sx={{ position: 'relative', left: '50px'}}>Projects</Typography>
-          <ProjectListItem
-            projectName="Unison"
-            projectDescription="Social Network for musicians aimed at developing new musical connections and inspiring new music."
+          <Typography sx={{ position: 'relative', left: '50px' }}>Projects</Typography>
+          {developer?.projects?.map((project: IProject) => {
+            
+            return (<>
+              
+              <ProjectListItem
+            projectName={project.projectName}
+            projectDescription={project.projectDescription}
             projectLink="blah"
             gitHubRepoLink=""
-            technologiesUsed={["Java"]}
+            technologiesUsed={project.technologiesUsed}
           />
+            </>)
+          })}
           <ProjectListItem
             projectName="DevPortal"
             projectDescription="Application for developers to showcase their projects and experience and connect with employers."
-            projectLink="blah"
-            gitHubRepoLink=""
-            technologiesUsed={["Java"]}
-          />
-          <ProjectListItem
-            projectName="WeChat"
-            projectDescription="Chat application with added functionality to send payments."
             projectLink="blah"
             gitHubRepoLink=""
             technologiesUsed={["Java"]}
