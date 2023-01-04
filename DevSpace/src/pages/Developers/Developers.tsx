@@ -18,7 +18,6 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
-import { GridList, GridListTile } from "@material-ui/core";
 
 interface IDeveloper {
   firstName: string;
@@ -31,6 +30,7 @@ interface IDeveloper {
   projects: [];
   linkedIn: string;
   gitHub: string;
+  experienceLevel: string;
 }
 
 const languages = [
@@ -40,12 +40,12 @@ const languages = [
   "C#",
   "Python",
   "JavaScript",
-  "PHP",
-  "Ruby",
+  "React",
+  "React Native",
   "Swift",
   "Go",
   "Kotlin",
-  "Scala",
+  "Java",
   "Rust",
   "Objective-C",
   "Perl",
@@ -101,6 +101,7 @@ const Developers: React.FC = () => {
 
   console.log(address);
   console.log(language);
+  console.log(experienceLevel);
 
   useEffect(() => {
     const searchDevelopers = async (
@@ -123,7 +124,7 @@ const Developers: React.FC = () => {
       setDeveloperSearchResults(data.developers);
       console.log(developerSearchResults);
     };
-    searchDevelopers(address, language);
+    searchDevelopers(address, language, experienceLevel);
   }, [address, language, experienceLevel]);
 
   console.log(developerSearchResults);
@@ -159,11 +160,11 @@ const Developers: React.FC = () => {
             }) => (
               <div>
                 <TextField
+                  helperText="Search Locations"
                   {...getInputProps({
                     placeholder: `${location?.description}`,
                   })}
                   sx={{ position: "relative", top: "20%" }}
-                  
                 />
 
                 <Grid
@@ -198,6 +199,7 @@ const Developers: React.FC = () => {
           <TextField
             id="outlined-basic"
             label="Search Locations"
+            helperText="Search Locations"
             variant="outlined"
             sx={{
               position: "relative",
@@ -219,18 +221,22 @@ const Developers: React.FC = () => {
             <TextField
               id="outlined-select-language"
               select
-              label="Select"
-              defaultValue="EUR"
+              defaultValue=""
               helperText="Select programming language"
               sx={{
                 position: "relative",
                 top: "20%",
+                right: "45%",
                 borderColor: "white",
                 color: "white",
               }}
             >
               {languages.map((option) => (
-                <MenuItem key={option} value={option} onClick={() => setLanguage(option)}>
+                <MenuItem
+                  key={option}
+                  value={option}
+                  onClick={() => setLanguage(option)}
+                >
                   {option}
                 </MenuItem>
               ))}
@@ -241,8 +247,8 @@ const Developers: React.FC = () => {
             <TextField
               id="outlined-select-currency"
               select
-              label="Select"
-              defaultValue="EUR"
+              label="Experience Level"
+              defaultValue=""
               helperText="Select experience level"
               sx={{
                 position: "relative",
@@ -252,7 +258,11 @@ const Developers: React.FC = () => {
               }}
             >
               {experienceLevels.map((option) => (
-                <MenuItem key={option} value={option} onClick={() => setExperienceLevel(option)}>
+                <MenuItem
+                  key={option}
+                  value={option}
+                  onClick={() => setExperienceLevel(option)}
+                >
                   {option}
                 </MenuItem>
               ))}
@@ -279,38 +289,24 @@ const Developers: React.FC = () => {
             columns={{ xs: 4, sm: 8, md: 12 }}
             sx={{ position: "relative", left: "5%" }}
           >
-            {developerSearchResults && developerSearchResults?.map((developer, index) => (
-              <Grid item xs={2} sm={4} md={4} key={index}>
-                <DevCard
-                  firstName={developer.firstName}
-                  lastName={developer.lastName}
-                  email={developer.email}
-                  statement={developer.statement}
-                  location={developer.location}
-                  profileImage={developer.profileImage}
-                  languages={developer.languages}
-                  projects={developer.projects}
-                  linkedIn={developer.linkedIn}
-                  gitHub={developer.gitHub}
-                />
-              </Grid>
-            ))}
-            {/* {allDevelopers?.map((developer, index) => (
-              <Grid item xs={2} sm={4} md={4} key={index}>
-                <DevCard
-                  firstName={developer.firstName}
-                  lastName={developer.lastName}
-                  email={developer.email}
-                  statement={developer.statement}
-                  location={developer.location}
-                  profileImage={developer.profileImage}
-                  languages={developer.languages}
-                  projects={developer.projects}
-                  linkedIn={developer.linkedIn}
-                  gitHub={developer.gitHub}
-                />
-              </Grid>
-            ))} */}
+            {developerSearchResults &&
+              developerSearchResults?.map((developer, index) => (
+                <Grid item xs={2} sm={4} md={4} key={index}>
+                  <DevCard
+                    firstName={developer.firstName}
+                    lastName={developer.lastName}
+                    email={developer.email}
+                    statement={developer.statement}
+                    location={developer.location}
+                    profileImage={developer.profileImage}
+                    languages={developer.languages}
+                    projects={developer.projects}
+                    linkedIn={developer.linkedIn}
+                    gitHub={developer.gitHub}
+                    experienceLevel={developer.experienceLevel}
+                  />
+                </Grid>
+              ))}
           </Grid>
         </Grid>
       </Grid>

@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import DevPortalIcon from '../../assets/icons/DevPortalIcon.png';
 import "./style.scss";
 
 const pages = ["Developers", "Roles", "Blog"];
@@ -86,7 +87,8 @@ function ResponsiveAppBar() {
     <AppBar position="static" style={{ background: "#2E3B55", width: "100vw" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+       
+          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}  />
           <Typography
             variant="h6"
             noWrap

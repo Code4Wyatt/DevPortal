@@ -3,7 +3,7 @@ import "./style.scss";
 import { Grid, Typography, Button, Box, createTheme } from "@mui/material";
 import Javascript from "../../assets/icons/javascript/javascript-original.svg";
 import Java from "../../assets/icons/java/java-original.svg";
-import ReactIcon from "../../assets/icons/react/react-original.svg";
+import ReactIcon from "../../assets/icons/React.svg";
 import Docker from "../../assets/icons/docker/docker-original.svg";
 
 interface Project {
