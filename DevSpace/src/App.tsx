@@ -4,6 +4,7 @@ import Auth from "../src/pages/Auth/Auth";
 import Dashboard from "../src/pages/Dashboard/Dashboard";
 import Developers from '../src/pages/Developers/Developers';
 import Developer from '../src/pages/Developer/Developer';
+import EditProfile from '../src/pages/EditProfile/EditProfile';
 import { ThemeProvider, createTheme } from "@mui/material";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Auth />} />
+          <Route path="/editProfile/:currentUserId" element={<EditProfile />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/developers" element={<Developers />} />
           <Route path="/developer/:id" element={<Developer />} />

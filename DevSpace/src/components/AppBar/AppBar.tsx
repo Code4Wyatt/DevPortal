@@ -205,6 +205,11 @@ function ResponsiveAppBar() {
                   My Profile
                 </Link>
               </MenuItem>
+              <MenuItem key={"edit profile"} onClick={handleCloseUserMenu}>
+                <Link to={`/editProfile/${currentUserDetails?._id}`}>
+                  Edit Profile
+                </Link>
+              </MenuItem>
 
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>

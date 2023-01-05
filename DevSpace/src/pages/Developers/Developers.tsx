@@ -47,6 +47,7 @@ const languages = [
   "Kotlin",
   "Java",
   "Rust",
+  "Ruby",
   "Objective-C",
   "Perl",
   "TypeScript",
