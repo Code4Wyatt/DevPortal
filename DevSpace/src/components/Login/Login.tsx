@@ -70,7 +70,7 @@ const Login: React.FC = () => {
     <>
       {" "}
       <AppBar />
-      <Grid item sx={{ position: "relative", left: "40%" }}>
+      <Grid item sx={{ position: "relative", left: "0%" }}>
         <ToastContainer
           position="top-right"
           autoClose={1000}

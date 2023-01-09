@@ -72,7 +72,7 @@ const login = async (email: string, password: string) => {
 const fetchCurrentUser = async (email: string) => {
   try {
     let response = await fetch(
-      `http://localhost:8000/users/currentUser/${email}`
+      `http://localhost:8000/developer/currentUser/${email}`
     );
     let data = await response.json();
     return data;
@@ -80,6 +80,7 @@ const fetchCurrentUser = async (email: string) => {
     console.log(error);
   }
 };
+
 
 export { login, fetchCurrentUser };
 export const { useLoginUserMutation } = authApi

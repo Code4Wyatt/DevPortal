@@ -4,7 +4,7 @@ import Auth from "../src/pages/Auth/Auth";
 import Dashboard from "../src/pages/Dashboard/Dashboard";
 import Developers from '../src/pages/Developers/Developers';
 import Developer from '../src/pages/Developer/Developer';
-import EditProfile from '../src/pages/EditProfile/EditProfile';
+import EditProfile from './pages/AddProject/AddProject';
 import { ThemeProvider, createTheme } from "@mui/material";
 
 function App() {

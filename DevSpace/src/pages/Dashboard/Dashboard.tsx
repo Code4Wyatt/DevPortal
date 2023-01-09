@@ -41,7 +41,7 @@ function Dashboard() {
   let [developer, setDeveloper] = useState<ICurrentUser>();
   let email = localStorage.getItem("email");
   useGetDeveloperDetailsQuery(email);
-
+  
   const reload = () => {
     window.location.reload();
   };

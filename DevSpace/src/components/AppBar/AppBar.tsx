@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { useGetDeveloperDetailsQuery } from "../../features/currentUser/userAPI";
 import DevPortalIcon from '../../assets/icons/DevPortalIcon.png';
 import "./style.scss";
 
@@ -72,7 +73,7 @@ function ResponsiveAppBar() {
   };
 
   let email = localStorage.getItem("email");
-
+  useGetDeveloperDetailsQuery(email);
   const currentUser: any = useSelector(
     (state: RootState) =>
       state.fetchUserDetails.queries[`getDeveloperDetails(\"${email}\")`]
