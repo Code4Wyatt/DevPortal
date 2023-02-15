@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -14,6 +14,7 @@ import KotlinLogo from "../../assets/icons/kotlin/kotlin-original.svg";
 import ReactNativeLogo from "../../assets/icons/ReactNative.png";
 import SwiftLogo from "../../assets/icons/swift/swift-original.svg";
 import RubyLogo from "../../assets/icons/ruby/ruby-original.svg";
+import './style.scss';
 
 interface IDeveloper {
   _id: string;
@@ -113,53 +114,59 @@ const DevCard: React.FunctionComponent<IDeveloper> = (props: IDeveloper) => {
   let level = words?.shift();
 
   return (
-    <Link to={`/developer/${props._id}`}><Card
+    <Card
       sx={{
         padding: 2,
         border: "1px solid blue",
-        background: "#141859",
+        backgroundColor: "#161948",
         height: "150px",
         width: "250px",
         color: "white",
       }}
+      className='devCard'
     >
-      <CardContent>
-        <Grid container spacing={2}>
-          <Grid item display="flex">
-            {props.profileImage ? (
-              <Avatar
-                alt="Remy Sharp"
-                src={props.profileImage}
-                sx={{ marginRight: "10px" }}
-              />
-            ) : (
-              <Avatar
-                {...stringAvatar(`${props.firstName} ${props.lastName}`)}
-                sx={{ marginRight: "10px" }}
-              />
-            )}
+      <Link
+        to={`/developer/${props._id}`}
+        style={{ color: "white", textDecoration: "none" }}
+      >
+        <CardContent>
+          <Grid container spacing={2}>
+            <Grid item display="flex">
+              {props.profileImage ? (
+                <Avatar
+                  alt="Remy Sharp"
+                  src={props.profileImage}
+                  sx={{ marginRight: "10px" }}
+                />
+              ) : (
+                <Avatar
+                  {...stringAvatar(`${props.firstName} ${props.lastName}`)}
+                  sx={{ marginRight: "10px" }}
+                />
+              )}
 
-            <Typography>
-              {props.firstName} {props.lastName}
-            </Typography>
+              <Typography>
+                {props.firstName} {props.lastName}
+              </Typography>
+            </Grid>
+
+            <Grid item display="column">
+              <Typography>{props.location}</Typography>
+              <Typography>Experience: {level}</Typography>
+            </Grid>
           </Grid>
-          <Grid item display="column">
-            <Typography>{props.location}</Typography>
-            <Typography>{level}</Typography>
+          <Grid item display="flex">
+            {props.languages.map((language) => {
+              return (
+                <>
+                  <LanguageIcon key={language} language={language} />
+                </>
+              );
+            })}
           </Grid>
-        </Grid>
-        <Grid item display="flex">
-          {props.languages.map((language) => {
-            return (
-              <>
-                <LanguageIcon key={language} language={language} />
-              </>
-            );
-          })}
-        </Grid>
-      </CardContent>
-    </Card></Link>
-  
+        </CardContent>
+      </Link>
+    </Card>
   );
 };
 
