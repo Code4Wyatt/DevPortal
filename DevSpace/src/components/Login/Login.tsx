@@ -23,6 +23,7 @@ const Login: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>();
   const [loginType, setLoginType] = useState("");
+  const [email, setEmail] = useState("");
 
   const [
     loginUser,
@@ -39,7 +40,8 @@ const Login: React.FC = () => {
       let email = data.email;
       let password = data.password;
       console.log(email, password);
-      await loginUser({ email, password });
+      setEmail(email);
+      await loginUser({ email, password })
     }
   });
 

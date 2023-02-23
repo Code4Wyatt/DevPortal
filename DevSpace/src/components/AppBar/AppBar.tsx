@@ -17,8 +17,9 @@ import { RootState } from "../../app/store";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useGetDeveloperDetailsQuery } from "../../features/currentUser/userAPI";
-import DevPortalIcon from '../../assets/icons/DevPortalIcon.png';
+import DevPortalIcon from "../../assets/icons/DevPortalIcon.png";
 import "./style.scss";
+import { each } from "immer/dist/internal";
 
 const pages = ["Developers", "Roles", "Blog"];
 const settings = ["Dashboard", "Settings", "Logout"];
@@ -56,6 +57,7 @@ function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
+  const [user, setUser] = React.useState<any>();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -73,23 +75,36 @@ function ResponsiveAppBar() {
   };
 
   let email = localStorage.getItem("email");
-  useGetDeveloperDetailsQuery(email);
-  const currentUser: any = useSelector(
-    (state: RootState) =>
-      state.fetchUserDetails.queries[`getDeveloperDetails(\"${email}\")`]
-        ?.data as IData["currentUser"]
-  );
+  let token = localStorage.getItem("token");
+  // useGetDeveloperDetailsQuery(email);
+  // const currentUser: any = useSelector(
+  //   (state: RootState) =>
+  //     state.fetchUserDetails.queries[`getDeveloperDetails(\"${email}\")`]
+  //       ?.data as IData["currentUser"]
+  // );
+  // let currentUserDetails = currentUser?.currentUser as ICurrentUser;
 
-  let currentUserDetails = currentUser?.currentUser as ICurrentUser;
+  React.useEffect(() => { 
+    const fetchUserDetails = async (email: string | null, token: string | null) => {
+    let response = await fetch(`http://localhost:8000/developer/currentUser/${email}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+});
+    let data = await response.json();
+    setUser(data);
+  }
+  fetchUserDetails(email, token);
+  }, [email]);
+  
 
-  console.log(currentUserDetails?.profileImage);
+  console.log("user prof imageeeeee", user?.currentUser?.profileImage);
 
   return (
     <AppBar position="static" style={{ background: "#2E3B55", width: "100vw" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-       
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}  />
+          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -176,50 +191,48 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-              {currentUserDetails ? <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  alt="Remy Sharp"
-                  src={currentUserDetails?.profileImage}
-                />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
-                <Link to={`/developer/${currentUserDetails?._id}`}>
-                  My Profile
-                </Link>
-              </MenuItem>
-              <MenuItem key={"edit profile"} onClick={handleCloseUserMenu}>
-                <Link to={`/editProfile/${currentUserDetails?._id}`}>
-                  Edit Profile
-                </Link>
-              </MenuItem>
-
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Link to={`/${setting}`}>{setting}</Link>
+          {user ? (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src={user?.currentUser?.profileImage} />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
+                  <Link to={`/developer/${user?._id}`}>My Profile</Link>
                 </MenuItem>
-              ))}
-            </Menu>
-          </Box> : <Link to={`/`}><Typography color="white">Log In</Typography></Link>}
-          
+                <MenuItem key={"edit profile"} onClick={handleCloseUserMenu}>
+                  <Link to={`/editProfile/${user?._id}`}>Edit Profile</Link>
+                </MenuItem>
+
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Link to={`/${setting}`}>{setting}</Link>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          ) : (
+            <Link to={`/`}>
+              <Typography color="white">Log In</Typography>
+            </Link>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
